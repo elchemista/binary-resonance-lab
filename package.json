@@ -1,0 +1,23 @@
+{
+  "name": "binary-resonance-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "test": "node --test",
+    "experiment": "node cli.js"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "pngjs": "^7.0.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "vite": "^8.4.0"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "format": "binary-resonance-lab/1",
+  "config": {
+    "size": 64,
+    "seed": 42,
+    "initial": "empty",
+    "rule": "exact",
+    "threshold": 1,
+    "neighbors": 6,
+    "boundary": "reflect",
+    "sources": [
+      {
+        "x": 32,
+        "y": 32,
+        "z": 0,
+        "frequency": 0.125,
+        "intensity": 100,
+        "phase": 0,
+        "wave": "square",
+        "direction": "Z+",
+        "radius": 1,
+        "duration": 0,
+        "enabled": true,
+        "sequence": "1001"
+      }
+    ],
+    "regions": [],
+    "face": "Z+",
+    "window": 24,
+    "nodal": 0.08
+  },
+  "events": [],
+  "tick": 112,
+  "mode": "direct"
+}

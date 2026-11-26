@@ -1,0 +1,7 @@
+{
+  "frequencies": [0.1, 0.125, 0.15],
+  "secondary": [null, 0.2],
+  "phases": [0, 90],
+  "laws": ["exact", "history"],
+  "steps": 112
+}

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101116" />
+    <title>Binary Resonance Lab</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%237657d8'/%3E%3Cpath d='M4 20h7l4-11 6 22 5-17 3 6h7' fill='none' stroke='white' stroke-width='2.5'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="head-inner">
+        <div class="brand">
+          <span class="brand-icon" data-icon="wave"></span>Binary Resonance <b>Lab</b>
+        </div>
+        <nav aria-label="Navigazione">
+          <button id="manualNav" class="nav selected"><i data-icon="sliders"></i>Laboratorio</button
+          ><button id="sweepNav" class="nav"><i data-icon="scan"></i>Scansioni</button>
+        </nav>
+        <span class="local"><i></i>Motore locale</span>
+      </div>
+    </header>
+    <main>
+      <div class="heading">
+        <div>
+          <h1 id="title">Banco sperimentale</h1>
+          <p id="subtitle">Propagazione di segnali in una matrice binaria tridimensionale.</p>
+        </div>
+        <div class="actions">
+          <button id="import"><i data-icon="upload"></i>Importa</button
+          ><button id="export"><i data-icon="download"></i>Esporta JSON</button
+          ><input hidden type="file" accept=".json,application/json" id="file" />
+        </div>
+      </div>
+      <div id="notice" role="status" hidden></div>
+      <section id="manual">
+        <div class="transport">
+          <button id="play" class="primary"></button><button id="step"><i data-icon="step"></i>Passo</button
+          ><button id="reset" title="Riparti dal passo zero"><i data-icon="reset"></i>Reset</button
+          ><span class="divider"></span
+          ><label class="speed"
+            >Velocità
+            <select id="speed">
+              <option value="4">4 Hz</option>
+              <option selected value="12">12 Hz</option>
+              <option value="24">24 Hz</option>
+              <option value="60">60 Hz</option>
+            </select></label
+          >
+          <div class="runtime">
+            <span class="state" id="state">In pausa</span
+            ><span class="tick">TICK <strong id="tick">000000</strong></span>
+          </div>
+        </div>
+        <div class="monitors">
+          <article class="card monitor" id="volumeCard">
+            <div class="cardhead">
+              <h2><i data-icon="cube"></i>Volume 3D</h2>
+              <div class="headtools">
+                <span class="tag" id="sizeTag"></span
+                ><button class="iconbtn" id="expand" aria-label="Espandi volume" title="Espandi volume">
+                  <i data-icon="expand"></i>
+                </button>
+              </div>
+            </div>
+            <div class="stage">
+              <div
+                id="volume"
+                role="img"
+                aria-label="Volume delle celle, trascina per ruotare e scorri per zoomare"
+              ></div>
+              <span class="viewlabel"><i></i>PROSPETTIVA</span
+              ><span class="orbit"><i data-icon="orbit"></i>Trascina per ruotare</span>
+            </div>
+            <div class="strip">
+              <span><b class="dot violet"></b>Cella attiva</span
+              ><span><b class="dot amber"></b>Generatore</span
+              ><span id="regionKey" hidden><b class="dot cyan"></b>Regione</span
+              ><button id="viewToggle" class="quiet"><i data-icon="sliders"></i>Vista</button>
+            </div>
+            <div id="viewSettings" hidden></div>
+          </article>
+          <article class="card monitor">
+            <div class="cardhead">
+              <h2><i data-icon="surface"></i>Superficie 2D</h2>
+              <select id="face" aria-label="Faccia osservata"></select>
+            </div>
+            <div class="surface">
+              <div class="pixel-wrap">
+                <canvas id="pixels" aria-label="Immagine della faccia osservata"></canvas>
+              </div>
+              <span id="res"></span>
+            </div>
+            <div class="strip">
+              <select id="mode" aria-label="Modalità di osservazione"></select
+              ><button id="png" class="quiet"><i data-icon="download"></i>PNG</button>
+            </div>
+          </article>
+        </div>
+        <section class="metrics card" aria-label="Misure della faccia">
+          <div class="measure">
+            <span title="Nero medio nell’immagine visualizzata">Densità immagine</span
+            ><strong id="density">—</strong>
+          </div>
+          <div class="measure">
+            <span title="Accordo medio con le due riflessioni assiali dell’immagine">Simmetria</span
+            ><strong id="symmetry">—</strong>
+          </div>
+          <div class="measure"><span>Entropia</span><strong id="entropy">—</strong></div>
+          <div class="measure">
+            <span title="Frazione di celle senza cambi di stato nella finestra osservata">Persistenza</span
+            ><strong id="persistence">—</strong>
+          </div>
+          <div class="measure graph">
+            <span>Attività nella finestra</span><strong id="activity">—</strong
+            ><canvas id="trend" width="140" height="36" aria-label="Variazioni per passo"></canvas>
+          </div>
+        </section>
+        <section class="card config">
+          <div class="cardhead">
+            <h2><i data-icon="sliders"></i>Configurazione</h2>
+            <div class="tabs" id="tabs"></div>
+          </div>
+          <div id="settings"></div>
+        </section>
+      </section>
+      <section id="sweep" hidden></section>
+    </main>
+    <script type="module" src="/src/ui/app.js"></script>
+  </body>
+</html>
