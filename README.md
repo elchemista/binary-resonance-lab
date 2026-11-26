@@ -2,7 +2,7 @@
 
 Laboratorio web locale per misurare quali configurazioni emergono sulla faccia di un cubo binario quando una o più sorgenti lo eccitano. Ogni pixel proviene da celle simulate o da misure della loro attività. Il progetto usa JavaScript, Node.js, Three.js, Canvas e un Web Worker. L'esperimento si può eseguire anche da terminale.
 
-Ho costruito questo laboratorio per la mia ricerca sull’intelligenza artificiale, in particolare sugli oloni e sui sistemi che apprendono. Mi serviva un modo per vedere come un segnale che varia nel tempo possa lasciare una struttura riconoscibile nello spazio. Una figura in un singolo fotogramma mi dice poco sulla sua stabilità. Ripetendo la prova e cambiando soltanto la frequenza, posso osservare quali parti della figura persistono, quali scompaiono e dopo quanti passi.
+Ho costruito questo laboratorio per la mia ricerca sull’intelligenza artificiale. Mi serviva un modo per vedere come un segnale che varia nel tempo possa lasciare una struttura riconoscibile nello spazio. Una figura in un singolo fotogramma mi dice poco sulla sua stabilità. Ripetendo la prova e cambiando soltanto la frequenza, posso osservare quali parti della figura persistono, quali scompaiono e dopo quanti passi.
 
 ![Il laboratorio con il volume binario 3D a sinistra e la rosetta nodale sulla faccia di uscita a destra](docs/images/laboratorio-rosetta.png)
 
@@ -102,7 +102,7 @@ Il JSON `binary-resonance-lab/1` include la configurazione iniziale con seed, la
 
 Le scansioni combinano frequenze A, frequenze B facoltative, fasi di A e regole. Si possono usare liste e intervalli nell'interfaccia. Nel [file di specifica](examples/scansione.json) gli assi sono array espliciti. Un valore B nullo conserva l'eventuale seconda sorgente originale. Un valore numerico imposta la seconda sorgente, creandola se necessario. Le altre sorgenti configurate restano attive secondo i propri parametri. Ogni prova usa i parametri correnti come condizioni di partenza al tick zero. Si possono interrompere i lotti nel browser e salvare le prove già completate.
 
-## Architettura e sviluppi di ricerca
+## Architettura
 
 | Componente | Responsabilità |
 | --- | --- |
@@ -112,7 +112,3 @@ Le scansioni combinano frequenze A, frequenze B facoltative, fasi di A e regole.
 | `src/core/experiment.js`, `sweep.js` | Registro, replay e prodotto cartesiano delle prove |
 | `src/worker.js` | Esecuzione fuori dal thread dell'interfaccia e campionamento della vista |
 | `src/ui/`, `cli.js` | Interfaccia locale e ingresso headless sullo stesso motore |
-
-Per gli **oloni**, il passo successivo è definire un criterio operativo di unità persistente. Si può partire da regioni connesse osservate nel volume, misurarne durata e risposta a una perturbazione locale, poi confrontarle con prove di controllo a sorgenti spente e con seed diversi. Occorre distinguere identità nel tempo e semplice immobilità.
-
-Per un **learner**, i registri forniscono esempi ripetibili di ingresso, parametri e uscita. Un primo compito verificabile è scegliere, da una scansione, la configurazione che minimizza la distanza di Hamming da una faccia binaria bersaglio. La verifica dovrebbe usare seed e configurazioni tenuti fuori dalla ricerca. Questa fase e l'eventuale motore comparativo a equazione delle onde sono sviluppi successivi.
