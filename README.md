@@ -24,6 +24,21 @@ npm run experiment -- sweep examples/prima-prova.json examples/scansione.json
 
 Il numero facoltativo dopo il file di replay aggiunge passi. Ogni comando sperimentale crea una directory distinta in `results/` con PNG nativo N × N, registro dell'esperimento e misure JSON. Una scansione aggiunge una tabella JSON di confronto. La build web è in `dist/`.
 
+## Preset di risonanza
+
+Selezionare una miniatura per aprire la prova in pausa sulla faccia Z+. **Frequenza comune** accorda insieme le quattro sorgenti. Al rilascio del cursore il worker ripete la prova dallo stato vuoto fino allo stesso tick, con lo stesso seed e la stessa finestra di 40 passi. Con le frecce della tastiera il cursore avanza di 0,001 cicli/passo. Un secondo clic sulla miniatura ripristina la taratura originale. Con **Avvia** si può seguire l'evoluzione oltre il tick di confronto.
+
+| Preset binario | Frequenza iniziale (cicli/passo) | Cubo | Tick | Pixel nodali cambiati a +0,005 cicli/passo |
+| --- | ---: | ---: | ---: | ---: |
+| Croce diagonale | 0,125 | 64³ | 125 | 0,39% |
+| Reticolo di losanghe | 0,050 | 32³ | 62 | 21,88% |
+| Quattro corone | 0,125 | 32³ | 89 | 14,06% |
+| Rosetta a quattro lobi | 0,190 | 32³ | 128 | 34,38% |
+
+**Riferimento fisico.** Il protocollo PHYWE impiega un generatore sinusoidale e consiglia di variare lentamente la frequenza. A pagina 9, per la loro piastra quadrata, riporta le diagonali a 185 Hz, il reticolo a 1100 Hz, la X con archi a 1550 Hz e quattro anelli a 1960 Hz. Queste frequenze dipendono dall'apparato. Il gruppo di Toronto pubblica fotografie e frequenze misurate su una diversa piastra quadrata di alluminio da 70 cm eccitata al centro. [Scheda PHYWE con le figure](https://fenix.tecnico.ulisboa.pt/downloadFile/3096843219132685/PHYWE_chladni_p2150501_en-1.pdf#page=9) · [Esperimento dell’Università di Toronto](https://www.physics.utoronto.ca/nonlinear/chladni.html)
+
+**Taratura digitale.** Le quattro ricette usano il seno codificato in bit, quattro sorgenti in fase sulla faccia Z− e la regola di conteggio esatto con un vicino attivo. Per la croce, le corone e la rosetta le quattro celle sorgente sono raccolte al centro. Per le losanghe sono distanziate. Frequenza, confini, soglia nodale e istante di osservazione sono stati scelti confrontando prove del motore. Gli Hz sperimentali e i cicli/passo sono scale indipendenti. Le miniature riproducono i pixel misurati al tick indicato. La tabella riporta la distanza di Hamming tra immagini nodali allo stesso tick. La persistenza successiva della figura si può misurare facendo avanzare la prova.
+
 ## Primo confronto riproducibile
 
 1. Importare la prima prova. Il generatore è in (32, 32, 0), la faccia osservata è Z+, il vicinato contiene sei celle e la regola attiva una cella quando esattamente un vicino è acceso.

@@ -5,6 +5,7 @@ import { volume } from './volume.js'
 import { settings, options } from './controls.js'
 import { paint, download, png } from './export.js'
 import { sweepUI } from './sweep.js'
+import { presets, presetExperiment, plateSource } from '../core/presets.js'
 
 const $ = (id) => document.getElementById(id)
 document.querySelectorAll('[data-icon]').forEach((el) => (el.innerHTML = icon(el.dataset.icon)))
@@ -110,8 +111,50 @@ function reset(c = config, steps = 0) {
   syncForm()
   send('init', { config, steps })
 }
+let activePreset = null
+const presetButtons = presets.map((preset) => {
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.setAttribute('aria-pressed', 'false')
+  const preview = new URL(`./preset-images/${preset.id}.png`, import.meta.url)
+  button.innerHTML = `<img src="${preview.href}" alt="" width="44" height="44"><span>${preset.name}<small>${preset.frequency.toFixed(3)} cicli/passo</small></span>`
+  button.onclick = () => loadPreset(preset, preset.frequency)
+  $('presetList').append(button)
+  return button
+})
+function selectPreset(preset) {
+  activePreset = preset
+  presetButtons.forEach((button, index) =>
+    button.setAttribute('aria-pressed', String(presets[index] === preset)),
+  )
+  $('presetTuning').hidden = !preset
+}
+function showFrequency(value) {
+  const text = Number(value).toFixed(3) + ' cicli/passo'
+  $('presetValue').textContent = text
+  $('presetFrequency').setAttribute('aria-valuetext', text)
+}
+function loadPreset(preset, frequency) {
+  const record = presetExperiment(preset, frequency)
+  selectPreset(preset)
+  $('presetFrequency').value = frequency
+  showFrequency(frequency)
+  $('presetHint').textContent =
+    'Al rilascio ricalcola i quattro generatori in fase dal passo zero al tick ' + record.tick + '.'
+  $('presetReference').innerHTML =
+    `Sulla piastra quadrata PHYWE, la sinusoide a ${preset.physicalHz} Hz produce ${preset.reference}. Il cubo usa un seno codificato in bit e una frequenza tarata in cicli/passo. <a href="${plateSource}" target="_blank" rel="noreferrer">Vedi la figura originale</a>`
+  mode = record.mode
+  tab = 'Generatori'
+  notice('')
+  reset(record.config, record.tick)
+}
+$('presetFrequency').oninput = (e) => showFrequency(e.target.value)
+$('presetFrequency').onchange = (e) => {
+  if (activePreset) loadPreset(activePreset, Number(e.target.value))
+}
 function apply(c) {
   validate(c)
+  selectPreset(null)
   if (['size', 'seed', 'initial'].some((k) => c[k] !== config[k])) reset(c)
   else {
     config = c
@@ -209,6 +252,7 @@ $('face').onchange = (e) => {
   if (!importing) apply({ ...config, face: e.target.value })
 }
 $('mode').onchange = (e) => {
+  selectPreset(null)
   mode = e.target.value
   send('frame')
 }
@@ -248,6 +292,7 @@ function page(manual) {
 $('manualNav').onclick = () => page(true)
 $('sweepNav').onclick = () => page(false)
 async function restore(record) {
+  selectPreset(null)
   page(true)
   importing = true
   notice('Riproduzione del registro in corso…')

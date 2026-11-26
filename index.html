@@ -37,6 +37,21 @@
       </div>
       <div id="notice" role="status" hidden></div>
       <section id="manual">
+        <section class="card presets" aria-labelledby="presetTitle">
+          <div class="preset-head">
+            <h2 id="presetTitle"><i data-icon="wave"></i>Preset di risonanza</h2>
+            <span>Figure nodali sulla faccia Z+</span>
+          </div>
+          <div id="presetList" class="preset-list" role="group" aria-label="Seleziona un esperimento"></div>
+          <div id="presetTuning" class="preset-tuning" hidden>
+            <div class="tune-control">
+              <label for="presetFrequency">Frequenza comune <output id="presetValue" for="presetFrequency"></output></label>
+              <input id="presetFrequency" type="range" min="0.001" max="0.5" step="0.001" aria-describedby="presetHint">
+              <small id="presetHint"></small>
+            </div>
+            <p id="presetReference"></p>
+          </div>
+        </section>
         <div class="transport">
           <button id="play" class="primary"></button><button id="step"><i data-icon="step"></i>Passo</button
           ><button id="reset" title="Riparti dal passo zero"><i data-icon="reset"></i>Reset</button
