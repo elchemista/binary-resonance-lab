@@ -2,6 +2,12 @@
 
 Laboratorio web locale per misurare quali configurazioni emergono sulla faccia di un cubo binario quando una o più sorgenti lo eccitano. Ogni pixel proviene da celle simulate o da misure della loro attività. Il progetto usa JavaScript, Node.js, Three.js, Canvas e un Web Worker. L'esperimento si può eseguire anche da terminale.
 
+Ho costruito questo laboratorio per la mia ricerca sull’intelligenza artificiale, in particolare sugli oloni e sui sistemi che apprendono. Mi serviva un modo per vedere come un segnale che varia nel tempo possa lasciare una struttura riconoscibile nello spazio. Una figura in un singolo fotogramma mi dice poco sulla sua stabilità. Ripetendo la prova e cambiando soltanto la frequenza, posso osservare quali parti della figura persistono, quali scompaiono e dopo quanti passi.
+
+![Il laboratorio con il volume binario 3D a sinistra e la rosetta nodale sulla faccia di uscita a destra](docs/images/laboratorio-rosetta.png)
+
+*Nella schermata, quattro sorgenti in fase eccitano un cubo di 32³ celle a 0,190 cicli per passo. La rosetta mostra le zone della faccia opposta che hanno cambiato stato meno spesso negli ultimi 40 passi. Seleziona **Rosetta a quattro lobi** per ricostruire la stessa immagine al tick 128.*
+
 ## Avvio
 
 Richiede Node.js 22.12 o successivo compatibile con Vite e npm.
